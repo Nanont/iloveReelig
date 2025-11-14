@@ -1,0 +1,13 @@
+# Ignore all raw data files
+data_raw/*.csv
+*.xlsx
+*.json
+*.parquet
+*.zip
+
+# Do not ignore example or placeholder files
+!README.md
+
+# Temporary files
+*.tmp
+*.log
