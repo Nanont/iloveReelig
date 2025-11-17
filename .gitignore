@@ -1,5 +1,6 @@
 # Ignore all raw data files
 data_raw/*.csv
+data_clean/*.csv
 *.xlsx
 *.json
 *.parquet
