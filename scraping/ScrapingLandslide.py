@@ -52,5 +52,11 @@ for f in features:
     })
 
 df_out = pd.DataFrame(records)
+
+df_out["ticket_id"] = ["EXT-%05d" % (i + 1828) for i in range(len(df_out))]
+
+cols = ["ticket_id"] + [col for col in df_out.columns if col != "ticket_id"]
+df_out = df_out[cols]
+
 df_out.to_csv("data_raw/external_raw/landslide_TH.csv", index=False, encoding="utf-8-sig")
 print(f"✅ ดึงและแปลงข้อมูลสำเร็จ: {len(df_out)} รายการ")

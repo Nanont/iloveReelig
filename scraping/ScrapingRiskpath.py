@@ -35,6 +35,12 @@ for feature in features:
 
 # สร้าง DataFrame และบันทึกเป็น CSV
 df_out = pd.DataFrame(rows)
+
+df_out["ticket_id"] = ["EXT-%05d" % (i + 3828) for i in range(len(df_out))]
+
+cols = ["ticket_id"] + [col for col in df_out.columns if col != "ticket_id"]
+df_out = df_out[cols]
+
 df_out.to_csv("data_raw/external_raw/risk_path.csv", index=False, encoding="utf-8-sig")
 
 print("✅ บันทึกไฟล์ risk_points_cleaned.csv เรียบร้อย:", len(df_out), "รายการ")

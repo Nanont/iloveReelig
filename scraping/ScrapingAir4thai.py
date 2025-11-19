@@ -70,6 +70,12 @@ for station in data["stations"]:
         "last_activity": datetime.now().isoformat()
     })
 
-df = pd.DataFrame(records)
-df.to_csv("data_raw/external_raw/pm25_api_full.csv", index=False, encoding="utf-8-sig")
-print("✅ บันทึกข้อมูลสำเร็จ:", len(df), "รายการ")
+df_out = pd.DataFrame(records)
+
+df_out["ticket_id"] = ["EXT-%05d" % i for i in range(1, len(df_out)+1)]
+
+cols = ["ticket_id"] + [col for col in df_out.columns if col != "ticket_id"]
+df_out = df_out[cols]
+
+df_out.to_csv("data_raw/external_raw/pm25_api_full.csv", index=False, encoding="utf-8-sig")
+print("✅ บันทึกข้อมูลสำเร็จ:", len(df_out), "รายการ")
