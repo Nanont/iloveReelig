@@ -34,7 +34,7 @@ for f in features:
         coords = ""
 
     records.append({
-        "type": "พื้นที่เสี่ยงภัยดินถล่ม",
+        "type": "{พื้นที่เสี่ยงภัยดินถล่ม}",
         "organization": "กรมทรัพยากรธรณี",
         "comment": attr.get("LOCATION", "") + " | รายละเอียด: " + attr.get("TYPE", ""),
         "photo": "",

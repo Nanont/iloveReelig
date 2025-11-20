@@ -43,8 +43,8 @@ for station in data["stations"]:
     info = station.get("AQILast", {})
     
     comment = f"สถานี: {station.get('nameTH', '')} | "
-    comment += f"PM2.5: {info.get('PM25', {}).get('value', '-')}"
-    comment += f" (AQI {info.get('PM25', {}).get('aqi', '-')}) | "
+    comment += f"PM2.5: {info.get('PM2.5', {}).get('value', '-')}"
+    comment += f" (AQI {info.get('PM2.5', {}).get('aqi', '-')}) | "
     comment += f"PM10: {info.get('PM10', {}).get('value', '-')} | "
     comment += f"CO: {info.get('CO', {}).get('value', '-')} | "
     comment += f"O3: {info.get('O3', {}).get('value', '-')} | "
@@ -53,7 +53,7 @@ for station in data["stations"]:
     comment += f"เวลา: {info.get('date', '')} {info.get('time', '')}"
 
     records.append({
-        "type": "pm25",
+        "type": "{PM2.5}",
         "organization": "Air4Thai",
         "comment": comment,
         "photo": "",

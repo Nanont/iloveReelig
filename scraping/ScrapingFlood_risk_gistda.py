@@ -131,7 +131,7 @@ for feature in data.get("features", []):
         coord_str = ""
 
     records.append({
-        "type": "น้ำท่วม",
+        "type": "{น้ำท่วม}",
         "organization": "GISTDA",
         "comment": props.get("LabelTH", "น้ำท่วม") + " | พท. (ตร.ม.): " + str(props.get("shape_area", "")),
         "photo": "",

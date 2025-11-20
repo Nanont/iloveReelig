@@ -16,7 +16,7 @@ for feature in features:
     coords = feature["geometry"]["coordinates"]
     
     rows.append({
-        "type": "ที่ตั้งจุดเสี่ยงภัยสะพานลอยคนเดินข้ามและป้ายรถโดยสารประจำทาง", 
+        "type": "{ที่ตั้งจุดเสี่ยงภัยสะพานลอยและป้ายรถโดยสารประจำทาง}", 
         "organization": "กรมป้องกันและบรรเทาสาธารณภัย",
         "comment": prop["location"],
         "photo": "",

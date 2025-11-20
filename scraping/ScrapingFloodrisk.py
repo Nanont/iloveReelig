@@ -8,7 +8,7 @@ df_raw = pd.read_csv(csv_url)
 # สร้าง DataFrame ตาม schema ที่ต้องการ
 
 df_out = pd.DataFrame({
-    "type": "น้ำท่วม",
+    "type": "{น้ำท่วม}",
     "organization": "Bangkok Flood Report",
     "comment": df_raw["name"] + " | รายละเอียด: " + df_raw["detail"].fillna(""),
     "photo": "",
