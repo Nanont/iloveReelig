@@ -12,6 +12,8 @@ from pyspark.sql.functions import (
     concat_ws,
 )
 
+
+
 import pandas  # เอาไว้ใช้ตอน toPandas() + to_csv
 
 # บังคับให้ Spark ใช้ Python ตัวเดียวกับที่รันสคริปต์นี้
