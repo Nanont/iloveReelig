@@ -26,11 +26,11 @@ def main():
     project_root = Path(__file__).resolve().parents[1]
 
     traffy_path = str(project_root / "data_clean" / "bangkok_traffy_clean.csv")
-    external_dir = str(project_root / "data_raw" / "external_raw")
+    external_path = str(project_root / "data_clean" / "all_external_clean.csv")
     output_path = str(project_root / "data_processed" / "processed_final_data")  # โฟลเดอร์
 
     print("Traffy:", traffy_path)
-    print("External dir:", external_dir)
+    print("External:", external_path)
     print("Output dir:", output_path)
 
     # ---------- 2. สร้าง SparkSession ----------
@@ -62,51 +62,25 @@ def main():
         # สร้าง DF ว่าง ๆ ไว้ก่อน (เดี๋ยวเติมคอลัมน์ทีหลัง)
         traffy_df = spark.createDataFrame([], schema="ticket_id string")
 
-    # ---------- 4. โหลด external CSV ทั้งโฟลเดอร์ แล้ว union ----------
+    # ---------- 4. โหลด external CSV file ----------
 
     external_df = None
 
-    if os.path.isdir(external_dir):
-        csv_files = [
-            os.path.join(external_dir, f)
-            for f in sorted(os.listdir(external_dir))
-            if f.endswith(".csv")
-        ]
-
-        if csv_files:
-            print("External files:")
-            dfs = []
-            for f in csv_files:
-                print("  ", f)
-                try:
-                    df = (
-    spark.read
-    .option("header", True)
-    .option("inferSchema", True)
-    .option("multiLine", True)
-    .option("quote", '"')
-    .option("escape", '"')
-    .csv(f)
-)
-
-                    print(f"Loaded {os.path.basename(f)}: {df.count()} rows")
-                    dfs.append(df)
-                except Exception as e:
-                    print(f"Error loading {f}: {e}")
-
-            if dfs:
-                external_df = dfs[0]
-                for d in dfs[1:]:
-                    external_df = external_df.unionByName(d, allowMissingColumns=True)
-
-                print("Total external rows:", external_df.count())
-                print("External columns:", external_df.columns)
-            else:
-                print("No external files loaded (all failed)")
-        else:
-            print("No external .csv files found in directory")
-    else:
-        print(f"Warning: external directory {external_dir} not found")
+    try:
+        external_df = (
+            spark.read
+            .option("header", True)
+            .option("inferSchema", True)
+            .option("multiLine", True)
+            .option("quote", '"')
+            .option("escape", '"')
+            .csv(external_path)
+        )
+        print("External rows:", external_df.count())
+        print("External columns:", external_df.columns)
+    except Exception as e:
+        print(f"Warning: cannot load external file: {e}")
+        external_df = None
 
     # ============================================================
     #   5. เตรียม schema ปลายทางที่เราอยากได้ (เหมือน pandas version)
