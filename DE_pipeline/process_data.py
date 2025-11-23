@@ -125,6 +125,7 @@ def main():
         "last_activity",
         "lat",
         "lon",
+        "district"
     ]
 
     # ---------- 5.1 Normalize Traffy ให้มีทุกคอลัมน์ + type ให้ตรง ----------
@@ -151,7 +152,8 @@ def main():
         "state",
         "star",
         "count_reopen",
-        "last_activity"
+        "last_activity",
+        "district"
     ]:
         if c not in traffy_norm.columns:
             traffy_norm = traffy_norm.withColumn(c, lit(None))
@@ -201,7 +203,8 @@ def main():
         "state",
         "star",
         "count_reopen",
-        "last_activity"
+        "last_activity",
+        "district"
     ]:
             if c not in ecols:
                 external_df = external_df.withColumn(c, lit(None))
